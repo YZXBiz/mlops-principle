@@ -1,0 +1,1241 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Machine Learning Operations (MLOps): Overview, Definition, and Architecture &#8212; Machine Learning Operations (MLOps)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'mlops_principles';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="References" href="references.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Machine Learning Operations (MLOps)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    Machine Learning Operations (MLOps): Overview, Definition, and Architecture
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/your-username/mlops-principle/main?urlpath=tree/mlops_principles.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/your-username/mlops-principle" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/your-username/mlops-principle/issues/new?title=Issue%20on%20page%20%2Fmlops_principles.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/mlops_principles.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Machine Learning Operations (MLOps): Overview, Definition, and Architecture</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors">Authors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstract">Abstract</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-challenges">Key Challenges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#research-question">Research Question</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foundations-of-devops">2. Foundations of DevOps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#devops-goals">DevOps Goals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#devops-tools-categories">DevOps Tools Categories</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#research-methodology">3. Research Methodology</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#literature-review">3.1 Literature Review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-review">3.2 Tool Review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interview-study">3.3 Interview Study</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlops-principles">4. MLOps Principles</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p1-ci-cd-automation">P1: CI/CD Automation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p2-workflow-orchestration">P2: Workflow Orchestration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p3-reproducibility">P3: Reproducibility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p4-versioning">P4: Versioning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p5-collaboration">P5: Collaboration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p6-continuous-ml-training-evaluation">P6: Continuous ML Training &amp; Evaluation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p7-ml-metadata-tracking-logging">P7: ML Metadata Tracking/Logging</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p8-continuous-monitoring">P8: Continuous Monitoring</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p9-feedback-loops">P9: Feedback Loops</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-components">5. Technical Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c1-ci-cd-component-p1-p6-p9">C1: CI/CD Component (P1, P6, P9)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c2-source-code-repository-p4-p5">C2: Source Code Repository (P4, P5)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c3-workflow-orchestration-component-p2-p3-p6">C3: Workflow Orchestration Component (P2, P3, P6)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c4-feature-store-system-p3-p4">C4: Feature Store System (P3, P4)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c5-model-training-infrastructure-p6">C5: Model Training Infrastructure (P6)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c6-model-registry-p3-p4">C6: Model Registry (P3, P4)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c7-ml-metadata-stores-p4-p7">C7: ML Metadata Stores (P4, P7)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c8-model-serving-component-p1">C8: Model Serving Component (P1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c9-monitoring-component-p8-p9">C9: Monitoring Component (P8, P9)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlops-roles">6. MLOps Roles</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r1-business-stakeholder">R1: Business Stakeholder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r2-solution-architect">R2: Solution Architect</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r3-data-scientist">R3: Data Scientist</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r4-data-engineer">R4: Data Engineer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r5-software-engineer">R5: Software Engineer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r6-devops-engineer">R6: DevOps Engineer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r7-ml-engineer-mlops-engineer">R7: ML Engineer/MLOps Engineer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlops-architecture-and-workflow">7. MLOps Architecture and Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-mlops-project-initiation">(A) MLOps Project Initiation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-feature-engineering-pipeline">(B) Feature Engineering Pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b1-requirements-definition">B1: Requirements Definition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b2-pipeline-implementation">B2: Pipeline Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#experimentation">© Experimentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-automated-ml-workflow-pipeline">(D) Automated ML Workflow Pipeline</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlops-definition">8. MLOps Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-characteristics">Key Characteristics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-challenges">9. Open Challenges</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#organizational-challenges">9.1 Organizational Challenges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ml-system-challenges">9.2 ML System Challenges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operational-challenges">9.3 Operational Challenges</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-and-technologies">10. Tools and Technologies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-source-examples">10.1 Open-Source Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commercial-examples">10.2 Commercial Examples</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">11. Conclusion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-contributions">Key Contributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#research-impact">Research Impact</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#future-directions">Future Directions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-reference-categories">Key Reference Categories</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="machine-learning-operations-mlops-overview-definition-and-architecture">
+<h1>Machine Learning Operations (MLOps): Overview, Definition, and Architecture<a class="headerlink" href="#machine-learning-operations-mlops-overview-definition-and-architecture" title="Link to this heading">#</a></h1>
+<section id="authors">
+<h2>Authors<a class="headerlink" href="#authors" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Dominik Kreuzberger (KIT, Germany)</p></li>
+<li><p>Niklas Kühl (KIT, Germany)</p></li>
+<li><p>Sebastian Hirschl (IBM, Germany)</p></li>
+</ul>
+</section>
+<section id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="Link to this heading">#</a></h2>
+<p>The final goal of all industrial machine learning (ML) projects is to develop ML products and rapidly bring them into production. However, it is highly challenging to automate and operationalize ML products and thus many ML endeavors fail to deliver on their expectations. The paradigm of Machine Learning Operations (MLOps) addresses this issue.</p>
+<p>This notebook provides a comprehensive overview of MLOps principles, components, roles, and architecture based on a mixed-method research study including literature review, tool review, and expert interviews.</p>
+</section>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Machine Learning (ML) has become an important technique to leverage the potential of data and allows businesses to be more innovative, efficient, and sustainable. However, the success of many productive ML applications in real-world settings falls short of expectations.</p>
+<section id="key-challenges">
+<h3>Key Challenges<a class="headerlink" href="#key-challenges" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Many ML projects fail to progress from proof of concept to production</p></li>
+<li><p>Data scientists manually manage ML workflows to a great extent</p></li>
+<li><p>Lack of automation and operationalization of ML systems</p></li>
+<li><p>Complex ML system components and infrastructure coordination</p></li>
+</ul>
+</section>
+<section id="research-question">
+<h3>Research Question<a class="headerlink" href="#research-question" title="Link to this heading">#</a></h3>
+<p><strong>What is MLOps?</strong></p>
+<p>This research aims to:</p>
+<ol class="arabic simple">
+<li><p>Identify important principles of MLOps</p></li>
+<li><p>Carve out functional core components</p></li>
+<li><p>Highlight necessary roles for successful MLOps implementation</p></li>
+<li><p>Derive a general architecture for ML systems design</p></li>
+</ol>
+</section>
+</section>
+<section id="foundations-of-devops">
+<h2>2. Foundations of DevOps<a class="headerlink" href="#foundations-of-devops" title="Link to this heading">#</a></h2>
+<p>DevOps emerged in 2008/2009 as a paradigm addressing social and technical issues in software development organizations.</p>
+<section id="devops-goals">
+<h3>DevOps Goals<a class="headerlink" href="#devops-goals" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Eliminate the gap between development and operations</p></li>
+<li><p>Emphasize collaboration, communication, and knowledge sharing</p></li>
+<li><p>Ensure automation with CI/CD (Continuous Integration/Continuous Delivery/Continuous Deployment)</p></li>
+<li><p>Enable fast, frequent, and reliable releases</p></li>
+<li><p>Continuous testing, quality assurance, monitoring, logging, and feedback loops</p></li>
+</ul>
+</section>
+<section id="devops-tools-categories">
+<h3>DevOps Tools Categories<a class="headerlink" href="#devops-tools-categories" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Collaboration and knowledge sharing</strong> (e.g., Slack, Trello, GitLab wiki)</p></li>
+<li><p><strong>Source code management</strong> (e.g., GitHub, GitLab)</p></li>
+<li><p><strong>Build process</strong> (e.g., Maven)</p></li>
+<li><p><strong>Continuous integration</strong> (e.g., Jenkins, GitLab CI)</p></li>
+<li><p><strong>Deployment automation</strong> (e.g., Kubernetes, Docker)</p></li>
+<li><p><strong>Monitoring and logging</strong> (e.g., Prometheus, Logstash)</p></li>
+</ol>
+</section>
+</section>
+<section id="research-methodology">
+<h2>3. Research Methodology<a class="headerlink" href="#research-methodology" title="Link to this heading">#</a></h2>
+<p>This study employed a mixed-method approach consisting of:</p>
+<section id="literature-review">
+<h3>3.1 Literature Review<a class="headerlink" href="#literature-review" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Systematic review following Webster and Watson methodology</p></li>
+<li><p>Search query: ((“DevOps” OR “CICD” OR “Continuous Integration” OR “Continuous Delivery” OR “Continuous Deployment”) AND “Machine Learning”) OR “MLOps” OR “CD4ML”</p></li>
+<li><p>Databases: Google Scholar, Web of Science, Science Direct, Scopus, AIS eLibrary</p></li>
+<li><p><strong>Results</strong>: 1,864 retrieved articles → 194 screened → 27 selected peer-reviewed articles</p></li>
+</ul>
+</section>
+<section id="tool-review">
+<h3>3.2 Tool Review<a class="headerlink" href="#tool-review" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Analysis of open-source tools, frameworks, and commercial cloud ML services</p></li>
+<li><p>11 tools evaluated for technical components understanding</p></li>
+</ul>
+</section>
+<section id="interview-study">
+<h3>3.3 Interview Study<a class="headerlink" href="#interview-study" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Semi-structured expert interviews with theoretical sampling</p></li>
+<li><p><strong>8 interviews</strong> with ML professionals from different organizations, industries, and countries</p></li>
+<li><p>Interviews conducted until theoretical saturation was reached</p></li>
+<li><p>Open coding scheme used for evaluation</p></li>
+</ul>
+</section>
+</section>
+<section id="mlops-principles">
+<h2>4. MLOps Principles<a class="headerlink" href="#mlops-principles" title="Link to this heading">#</a></h2>
+<p>Based on the research methodology, <strong>9 core principles</strong> were identified for realizing MLOps:</p>
+<section id="p1-ci-cd-automation">
+<h3>P1: CI/CD Automation<a class="headerlink" href="#p1-ci-cd-automation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Provides continuous integration, continuous delivery, and continuous deployment</p></li>
+<li><p>Carries out build, test, delivery, and deploy steps</p></li>
+<li><p>Provides fast feedback to developers</p></li>
+<li><p>Increases overall productivity</p></li>
+</ul>
+</section>
+<section id="p2-workflow-orchestration">
+<h3>P2: Workflow Orchestration<a class="headerlink" href="#p2-workflow-orchestration" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Coordinates tasks of ML workflow pipeline according to directed acyclic graphs (DAGs)</p></li>
+<li><p>DAGs define task execution order by considering relationships and dependencies</p></li>
+</ul>
+</section>
+<section id="p3-reproducibility">
+<h3>P3: Reproducibility<a class="headerlink" href="#p3-reproducibility" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Ability to reproduce an ML experiment and obtain the exact same results</p></li>
+<li><p>Essential for scientific validity and debugging</p></li>
+</ul>
+</section>
+<section id="p4-versioning">
+<h3>P4: Versioning<a class="headerlink" href="#p4-versioning" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Ensures versioning of data, model, and code</p></li>
+<li><p>Enables not only reproducibility but also traceability</p></li>
+<li><p>Important for compliance and auditing reasons</p></li>
+</ul>
+</section>
+<section id="p5-collaboration">
+<h3>P5: Collaboration<a class="headerlink" href="#p5-collaboration" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Ensures possibility to work collaboratively on data, model, and code</p></li>
+<li><p>Emphasizes collaborative and communicative work culture</p></li>
+<li><p>Aims to reduce domain silos between different roles</p></li>
+</ul>
+</section>
+<section id="p6-continuous-ml-training-evaluation">
+<h3>P6: Continuous ML Training &amp; Evaluation<a class="headerlink" href="#p6-continuous-ml-training-evaluation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Periodic retraining of ML model based on new feature data</p></li>
+<li><p>Enabled through monitoring component, feedback loop, and automated ML workflow pipeline</p></li>
+<li><p>Always includes evaluation run to assess change in model quality</p></li>
+</ul>
+</section>
+<section id="p7-ml-metadata-tracking-logging">
+<h3>P7: ML Metadata Tracking/Logging<a class="headerlink" href="#p7-ml-metadata-tracking-logging" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Tracks and logs metadata for each orchestrated ML workflow task</p></li>
+<li><p>Includes training job iteration metadata (date, time, duration)</p></li>
+<li><p>Tracks model-specific metadata (parameters, performance metrics, model lineage)</p></li>
+<li><p>Ensures full traceability of experiment runs</p></li>
+</ul>
+</section>
+<section id="p8-continuous-monitoring">
+<h3>P8: Continuous Monitoring<a class="headerlink" href="#p8-continuous-monitoring" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Periodic assessment of data, model, code, infrastructure resources</p></li>
+<li><p>Monitors model serving performance (e.g., prediction accuracy)</p></li>
+<li><p>Detects potential errors or changes that influence product quality</p></li>
+</ul>
+</section>
+<section id="p9-feedback-loops">
+<h3>P9: Feedback Loops<a class="headerlink" href="#p9-feedback-loops" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Multiple feedback loops integrate insights from quality assessment into development</p></li>
+<li><p>Feedback from experimental model engineering to feature engineering</p></li>
+<li><p>Feedback from monitoring component to scheduler for retraining enablement</p></li>
+</ul>
+</section>
+</section>
+<section id="technical-components">
+<h2>5. Technical Components<a class="headerlink" href="#technical-components" title="Link to this heading">#</a></h2>
+<p>The principles are implemented through <strong>9 technical components</strong>:</p>
+<section id="c1-ci-cd-component-p1-p6-p9">
+<h3>C1: CI/CD Component (P1, P6, P9)<a class="headerlink" href="#c1-ci-cd-component-p1-p6-p9" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Ensures continuous integration, delivery, and deployment</p></li>
+<li><p>Handles build, test, delivery, and deploy steps</p></li>
+<li><p><strong>Examples</strong>: Jenkins, GitHub Actions</p></li>
+</ul>
+</section>
+<section id="c2-source-code-repository-p4-p5">
+<h3>C2: Source Code Repository (P4, P5)<a class="headerlink" href="#c2-source-code-repository-p4-p5" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Ensures code storing and versioning</p></li>
+<li><p>Allows multiple developers to commit and merge code</p></li>
+<li><p><strong>Examples</strong>: GitHub, GitLab, Bitbucket, Gitea</p></li>
+</ul>
+</section>
+<section id="c3-workflow-orchestration-component-p2-p3-p6">
+<h3>C3: Workflow Orchestration Component (P2, P3, P6)<a class="headerlink" href="#c3-workflow-orchestration-component-p2-p3-p6" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Offers task orchestration via directed acyclic graphs (DAGs)</p></li>
+<li><p>Represents execution order and artifact usage of workflow steps</p></li>
+<li><p><strong>Examples</strong>: Apache Airflow, Kubeflow Pipelines, Luigi, AWS SageMaker Pipelines</p></li>
+</ul>
+</section>
+<section id="c4-feature-store-system-p3-p4">
+<h3>C4: Feature Store System (P3, P4)<a class="headerlink" href="#c4-feature-store-system-p3-p4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Central storage of commonly used features</p></li>
+<li><p>Offline database for experimentation (normal latency)</p></li>
+<li><p>Online database for production predictions (low latency)</p></li>
+<li><p><strong>Examples</strong>: Google Feast, Amazon AWS Feature Store, <a class="reference external" href="http://Tecton.ai">Tecton.ai</a>, <a class="reference external" href="http://Hopswork.ai">Hopswork.ai</a></p></li>
+</ul>
+</section>
+<section id="c5-model-training-infrastructure-p6">
+<h3>C5: Model Training Infrastructure (P6)<a class="headerlink" href="#c5-model-training-infrastructure-p6" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Provides foundational computation resources (CPUs, RAM, GPUs)</p></li>
+<li><p>Can be distributed or non-distributed</p></li>
+<li><p>Scalable and distributed infrastructure recommended</p></li>
+<li><p><strong>Examples</strong>: Local machines, cloud computation, Kubernetes, Red Hat OpenShift</p></li>
+</ul>
+</section>
+<section id="c6-model-registry-p3-p4">
+<h3>C6: Model Registry (P3, P4)<a class="headerlink" href="#c6-model-registry-p3-p4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Centrally stores trained ML models with metadata</p></li>
+<li><p>Two main functionalities: storing ML artifacts and ML metadata</p></li>
+<li><p><strong>Examples</strong>: MLflow, AWS SageMaker Model Registry, Azure ML Model Registry, <a class="reference external" href="http://Neptune.ai">Neptune.ai</a></p></li>
+</ul>
+</section>
+<section id="c7-ml-metadata-stores-p4-p7">
+<h3>C7: ML Metadata Stores (P4, P7)<a class="headerlink" href="#c7-ml-metadata-stores-p4-p7" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Tracks various kinds of metadata for ML workflow pipeline tasks</p></li>
+<li><p>Stores training job metadata (date, time, duration, parameters, performance metrics)</p></li>
+<li><p>Tracks model lineage (data and code used)</p></li>
+<li><p><strong>Examples</strong>: Kubeflow Pipelines, AWS SageMaker Pipelines, Azure ML, IBM Watson Studio</p></li>
+</ul>
+</section>
+<section id="c8-model-serving-component-p1">
+<h3>C8: Model Serving Component (P1)<a class="headerlink" href="#c8-model-serving-component-p1" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Configured for different purposes: online inference or batch inference</p></li>
+<li><p>Can serve via REST API</p></li>
+<li><p>Scalable and distributed infrastructure recommended</p></li>
+<li><p><strong>Examples</strong>: Kubernetes + Docker + Flask, KServing, TensorFlow Serving, cloud services</p></li>
+</ul>
+</section>
+<section id="c9-monitoring-component-p8-p9">
+<h3>C9: Monitoring Component (P8, P9)<a class="headerlink" href="#c9-monitoring-component-p8-p9" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Continuous monitoring of model serving performance</p></li>
+<li><p>Monitors ML infrastructure, CI/CD, and orchestration</p></li>
+<li><p><strong>Examples</strong>: Prometheus + Grafana, ELK stack, TensorBoard, cloud monitoring services</p></li>
+</ul>
+</section>
+</section>
+<section id="mlops-roles">
+<h2>6. MLOps Roles<a class="headerlink" href="#mlops-roles" title="Link to this heading">#</a></h2>
+<p>MLOps requires <strong>7 key roles</strong> for successful implementation:</p>
+<section id="r1-business-stakeholder">
+<h3>R1: Business Stakeholder<a class="headerlink" href="#r1-business-stakeholder" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Similar roles</strong>: Product Owner, Project Manager</p></li>
+<li><p><strong>Responsibilities</strong>: Defines business goals, communicates ROI, presents business value</p></li>
+</ul>
+</section>
+<section id="r2-solution-architect">
+<h3>R2: Solution Architect<a class="headerlink" href="#r2-solution-architect" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Similar roles</strong>: IT Architect</p></li>
+<li><p><strong>Responsibilities</strong>: Designs architecture, defines technologies after thorough evaluation</p></li>
+</ul>
+</section>
+<section id="r3-data-scientist">
+<h3>R3: Data Scientist<a class="headerlink" href="#r3-data-scientist" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Similar roles</strong>: ML Specialist, ML Developer</p></li>
+<li><p><strong>Responsibilities</strong>: Translates business problems to ML problems, model engineering, algorithm and hyperparameter selection</p></li>
+</ul>
+</section>
+<section id="r4-data-engineer">
+<h3>R4: Data Engineer<a class="headerlink" href="#r4-data-engineer" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Similar roles</strong>: DataOps Engineer</p></li>
+<li><p><strong>Responsibilities</strong>: Builds and manages data/feature engineering pipelines, ensures proper data ingestion to feature stores</p></li>
+</ul>
+</section>
+<section id="r5-software-engineer">
+<h3>R5: Software Engineer<a class="headerlink" href="#r5-software-engineer" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Responsibilities</strong>: Applies software design patterns, coding guidelines, and best practices to turn raw ML problems into well-engineered products</p></li>
+</ul>
+</section>
+<section id="r6-devops-engineer">
+<h3>R6: DevOps Engineer<a class="headerlink" href="#r6-devops-engineer" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Responsibilities</strong>: Bridges gap between development and operations, ensures CI/CD automation, ML workflow orchestration, model deployment, and monitoring</p></li>
+</ul>
+</section>
+<section id="r7-ml-engineer-mlops-engineer">
+<h3>R7: ML Engineer/MLOps Engineer<a class="headerlink" href="#r7-ml-engineer-mlops-engineer" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Cross-domain role</strong> combining aspects of multiple roles</p></li>
+<li><p><strong>Skills from</strong>: Data scientists, data engineers, software engineers, DevOps engineers, backend engineers</p></li>
+<li><p><strong>Responsibilities</strong>: Builds and operates ML infrastructure, manages automated ML workflow pipelines, handles model deployment and monitoring</p></li>
+</ul>
+</section>
+</section>
+<section id="mlops-architecture-and-workflow">
+<h2>7. MLOps Architecture and Workflow<a class="headerlink" href="#mlops-architecture-and-workflow" title="Link to this heading">#</a></h2>
+<p>The end-to-end MLOps architecture consists of <strong>4 main stages</strong>:</p>
+<section id="a-mlops-project-initiation">
+<h3>(A) MLOps Project Initiation<a class="headerlink" href="#a-mlops-project-initiation" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Business analysis</strong> (R1): Identify potential business problems solvable with ML</p></li>
+<li><p><strong>Architecture design</strong> (R2): Define overall ML system architecture and technologies</p></li>
+<li><p><strong>ML problem derivation</strong> (R3): Derive ML problem from business goal</p></li>
+<li><p><strong>Data requirements</strong> (R3, R4): Understand required data to solve the problem</p></li>
+<li><p><strong>Data source location</strong> (R3, R4): Locate and analyze raw data sources</p></li>
+</ol>
+</section>
+<section id="b-feature-engineering-pipeline">
+<h3>(B) Feature Engineering Pipeline<a class="headerlink" href="#b-feature-engineering-pipeline" title="Link to this heading">#</a></h3>
+<section id="b1-requirements-definition">
+<h4>B1: Requirements Definition<a class="headerlink" href="#b1-requirements-definition" title="Link to this heading">#</a></h4>
+<ol class="arabic simple" start="6">
+<li><p><strong>Data transformation rules</strong> (R4): Define normalization, aggregations, cleaning rules</p></li>
+<li><p><strong>Feature engineering rules</strong> (R3, R4): Define calculation of new features</p></li>
+</ol>
+</section>
+<section id="b2-pipeline-implementation">
+<h4>B2: Pipeline Implementation<a class="headerlink" href="#b2-pipeline-implementation" title="Link to this heading">#</a></h4>
+<ol class="arabic simple" start="8">
+<li><p><strong>Raw data connection</strong>: Connect to streaming, batch, or cloud storage data</p></li>
+<li><p><strong>Data extraction</strong>: Extract data from sources</p></li>
+<li><p><strong>Data preprocessing</strong>: Transform and clean data</p></li>
+<li><p><strong>Feature engineering</strong>: Calculate new features based on existing ones</p></li>
+<li><p><strong>Data ingestion</strong>: Load data into feature store (offline/online databases)</p></li>
+</ol>
+</section>
+</section>
+<section id="experimentation">
+<h3>© Experimentation<a class="headerlink" href="#experimentation" title="Link to this heading">#</a></h3>
+<ol class="arabic simple" start="13">
+<li><p><strong>Data analysis</strong> (R3): Connect to feature store for analysis</p></li>
+<li><p><strong>Data preparation</strong> (R3): Prepare and validate data, create train/test splits</p></li>
+<li><p><strong>Algorithm selection</strong> (R3): Estimate best-performing algorithm and hyperparameters</p></li>
+<li><p><strong>Model training</strong> (R3, R5): Train and validate models iteratively</p></li>
+<li><p><strong>Model export</strong> (R3): Export best-performing model and commit code</p></li>
+</ol>
+</section>
+<section id="d-automated-ml-workflow-pipeline">
+<h3>(D) Automated ML Workflow Pipeline<a class="headerlink" href="#d-automated-ml-workflow-pipeline" title="Link to this heading">#</a></h3>
+<ol class="arabic simple" start="18">
+<li><p><strong>Data extraction</strong>: Automated pulling of versioned features</p></li>
+<li><p><strong>Data preparation</strong>: Automated data preparation and validation</p></li>
+<li><p><strong>Model training</strong>: Automated final model training on new data</p></li>
+<li><p><strong>Model evaluation</strong>: Automated model evaluation and hyperparameter adjustment</p></li>
+<li><p><strong>Model export</strong>: Export trained model</p></li>
+<li><p><strong>Model registry</strong>: Push model to registry with metadata</p></li>
+<li><p><strong>Deployment</strong>: CI/CD triggers continuous deployment pipeline</p></li>
+<li><p><strong>Model serving</strong>: Serve predictions on new data</p></li>
+<li><p><strong>Monitoring</strong>: Continuous monitoring of model and infrastructure performance</p></li>
+<li><p><strong>Feedback loops</strong>: Fast feedback for continuous improvement and retraining</p></li>
+<li><p><strong>Continuous training</strong>: Trigger retraining based on monitoring feedback</p></li>
+</ol>
+</section>
+</section>
+<section id="mlops-definition">
+<h2>8. MLOps Definition<a class="headerlink" href="#mlops-definition" title="Link to this heading">#</a></h2>
+<p>Based on the research findings, MLOps is defined as:</p>
+<blockquote>
+<div><p><strong>MLOps (Machine Learning Operations) is a paradigm, including aspects like best practices, sets of concepts, as well as a development culture when it comes to the end-to-end conceptualization, implementation, monitoring, deployment, and scalability of machine learning products.</strong></p>
+<p><strong>Most of all, it is an engineering practice that leverages three contributing disciplines: machine learning, software engineering (especially DevOps), and data engineering.</strong></p>
+<p><strong>MLOps is aimed at productionizing machine learning systems by bridging the gap between development (Dev) and operations (Ops).</strong></p>
+<p><strong>Essentially, MLOps aims to facilitate the creation of machine learning products by leveraging these principles: CI/CD automation, workflow orchestration, reproducibility; versioning of data, model, and code; collaboration; continuous ML training and evaluation; ML metadata tracking and logging; continuous monitoring; and feedback loops.</strong></p>
+</div></blockquote>
+<section id="key-characteristics">
+<h3>Key Characteristics<a class="headerlink" href="#key-characteristics" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Paradigm</strong>: More than just tools and technologies</p></li>
+<li><p><strong>Interdisciplinary</strong>: Combines ML, software engineering, and data engineering</p></li>
+<li><p><strong>Engineering practice</strong>: Focus on production-ready systems</p></li>
+<li><p><strong>Bridge</strong>: Connects development and operations</p></li>
+<li><p><strong>Principle-driven</strong>: Based on 9 core principles for automation and operationalization</p></li>
+</ul>
+</section>
+</section>
+<section id="open-challenges">
+<h2>9. Open Challenges<a class="headerlink" href="#open-challenges" title="Link to this heading">#</a></h2>
+<p>Several challenges for adopting MLOps have been identified:</p>
+<section id="organizational-challenges">
+<h3>9.1 Organizational Challenges<a class="headerlink" href="#organizational-challenges" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Mindset and culture shift</strong>: From model-driven to product-oriented discipline</p></li>
+<li><p><strong>Skills shortage</strong>: Lack of highly skilled experts, especially architects, data engineers, ML engineers, DevOps engineers</p></li>
+<li><p><strong>Education gap</strong>: MLOps typically not part of data science education</p></li>
+<li><p><strong>Team coordination</strong>: Need for multi-disciplinary teams vs. working in silos</p></li>
+<li><p><strong>Communication barriers</strong>: Different knowledge levels and specialized terminologies</p></li>
+<li><p><strong>Business buy-in</strong>: Convincing decision-makers of MLOps maturity benefits</p></li>
+</ul>
+</section>
+<section id="ml-system-challenges">
+<h3>9.2 ML System Challenges<a class="headerlink" href="#ml-system-challenges" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Fluctuating demand</strong>: Designing for varying ML training processes</p></li>
+<li><p><strong>Resource estimation</strong>: Difficulty estimating infrastructure resources (CPU, RAM, GPU)</p></li>
+<li><p><strong>Scalability requirements</strong>: High level of flexibility needed for infrastructure scaling</p></li>
+</ul>
+</section>
+<section id="operational-challenges">
+<h3>9.3 Operational Challenges<a class="headerlink" href="#operational-challenges" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Manual operations complexity</strong>: Challenging to operate ML manually due to diverse software/hardware stacks</p></li>
+<li><p><strong>Automation requirements</strong>: Need for robust automation across the entire pipeline</p></li>
+<li><p><strong>Continuous retraining</strong>: Constant incoming data forces repetitive retraining tasks</p></li>
+<li><p><strong>Artifact management</strong>: Large number of artifacts require strong governance and versioning</p></li>
+<li><p><strong>Support complexity</strong>: Resolving issues complicated by many parties and components involved</p></li>
+<li><p><strong>Failure diagnosis</strong>: Failures can be combination of ML infrastructure and software issues</p></li>
+</ul>
+</section>
+</section>
+<section id="tools-and-technologies">
+<h2>10. Tools and Technologies<a class="headerlink" href="#tools-and-technologies" title="Link to this heading">#</a></h2>
+<section id="open-source-examples">
+<h3>10.1 Open-Source Examples<a class="headerlink" href="#open-source-examples" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Components</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>TensorFlow Extended (TFX)</strong></p></td>
+<td><p>Configuration framework for end-to-end ML pipelines</p></td>
+<td><p>Data validation, model training, serving</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Apache Airflow</strong></p></td>
+<td><p>Workflow orchestration tool using DAGs</p></td>
+<td><p>Workflow orchestration</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Kubeflow</strong></p></td>
+<td><p>Kubernetes-based end-to-end ML platform</p></td>
+<td><p>Complete MLOps platform</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>MLflow</strong></p></td>
+<td><p>ML lifecycle management platform</p></td>
+<td><p>Experiment tracking, model registry, serving</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="commercial-examples">
+<h3>10.2 Commercial Examples<a class="headerlink" href="#commercial-examples" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Platform</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Provider</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Amazon SageMaker</strong></p></td>
+<td><p>End-to-end ML platform with feature store, pipelines, endpoints</p></td>
+<td><p>AWS</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Azure ML</strong></p></td>
+<td><p>End-to-end ML platform with DevOps integration</p></td>
+<td><p>Microsoft</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Google Vertex AI</strong></p></td>
+<td><p>Fully managed end-to-end ML platform</p></td>
+<td><p>Google Cloud</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>IBM Watson Studio</strong></p></td>
+<td><p>Data and ML capabilities package</p></td>
+<td><p>IBM</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Databricks</strong></p></td>
+<td><p>Managed MLflow and ML platform</p></td>
+<td><p>Databricks</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="conclusion">
+<h2>11. Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>This comprehensive study provides a holistic understanding of MLOps through:</p>
+<section id="key-contributions">
+<h3>Key Contributions<a class="headerlink" href="#key-contributions" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>9 Core Principles</strong> that guide MLOps implementation</p></li>
+<li><p><strong>9 Technical Components</strong> that operationalize the principles</p></li>
+<li><p><strong>7 Essential Roles</strong> required for successful MLOps adoption</p></li>
+<li><p><strong>End-to-end Architecture</strong> with detailed workflow stages</p></li>
+<li><p><strong>Formal Definition</strong> of MLOps as a paradigm</p></li>
+<li><p><strong>Open Challenges</strong> categorized into organizational, system, and operational</p></li>
+</ol>
+</section>
+<section id="research-impact">
+<h3>Research Impact<a class="headerlink" href="#research-impact" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Provides common understanding of MLOps terminology and concepts</p></li>
+<li><p>Offers practical guidance for ML researchers and practitioners</p></li>
+<li><p>Addresses the gap between ML model development and production deployment</p></li>
+<li><p>Supports transition from manual ML workflows to automated, operationalized systems</p></li>
+</ul>
+</section>
+<section id="future-directions">
+<h3>Future Directions<a class="headerlink" href="#future-directions" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Address identified challenges through targeted solutions</p></li>
+<li><p>Develop MLOps education curricula</p></li>
+<li><p>Create standardized MLOps maturity models</p></li>
+<li><p>Investigate domain-specific MLOps adaptations</p></li>
+<li><p>Explore automation techniques for complex ML workflows</p></li>
+</ul>
+<p>The paradigm of MLOps represents a fundamental shift toward engineering practices that enable reliable, scalable, and maintainable machine learning systems in production environments.</p>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<p>This notebook is based on the research paper:</p>
+<p><strong>Kreuzberger, D., Kühl, N., &amp; Hirschl, S.</strong> “Machine Learning Operations (MLOps): Overview, Definition, and Architecture.”</p>
+<p>The original paper includes 46 references covering MLOps literature, DevOps foundations, workflow orchestration, continuous delivery for ML, and industry case studies.</p>
+<section id="key-reference-categories">
+<h3>Key Reference Categories<a class="headerlink" href="#key-reference-categories" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>MLOps and continuous delivery for ML systems</p></li>
+<li><p>DevOps principles and practices</p></li>
+<li><p>Machine learning engineering and operations</p></li>
+<li><p>Software engineering best practices</p></li>
+<li><p>Cloud-based ML platforms and tools</p></li>
+<li><p>Workflow orchestration and automation</p></li>
+<li><p>Data engineering and feature stores</p></li>
+<li><p>Model monitoring and deployment strategies</p></li>
+</ul>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="references.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">References</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors">Authors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abstract">Abstract</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-challenges">Key Challenges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#research-question">Research Question</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foundations-of-devops">2. Foundations of DevOps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#devops-goals">DevOps Goals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#devops-tools-categories">DevOps Tools Categories</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#research-methodology">3. Research Methodology</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#literature-review">3.1 Literature Review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tool-review">3.2 Tool Review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interview-study">3.3 Interview Study</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlops-principles">4. MLOps Principles</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p1-ci-cd-automation">P1: CI/CD Automation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p2-workflow-orchestration">P2: Workflow Orchestration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p3-reproducibility">P3: Reproducibility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p4-versioning">P4: Versioning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p5-collaboration">P5: Collaboration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p6-continuous-ml-training-evaluation">P6: Continuous ML Training &amp; Evaluation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p7-ml-metadata-tracking-logging">P7: ML Metadata Tracking/Logging</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p8-continuous-monitoring">P8: Continuous Monitoring</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#p9-feedback-loops">P9: Feedback Loops</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-components">5. Technical Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c1-ci-cd-component-p1-p6-p9">C1: CI/CD Component (P1, P6, P9)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c2-source-code-repository-p4-p5">C2: Source Code Repository (P4, P5)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c3-workflow-orchestration-component-p2-p3-p6">C3: Workflow Orchestration Component (P2, P3, P6)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c4-feature-store-system-p3-p4">C4: Feature Store System (P3, P4)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c5-model-training-infrastructure-p6">C5: Model Training Infrastructure (P6)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c6-model-registry-p3-p4">C6: Model Registry (P3, P4)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c7-ml-metadata-stores-p4-p7">C7: ML Metadata Stores (P4, P7)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c8-model-serving-component-p1">C8: Model Serving Component (P1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c9-monitoring-component-p8-p9">C9: Monitoring Component (P8, P9)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlops-roles">6. MLOps Roles</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r1-business-stakeholder">R1: Business Stakeholder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r2-solution-architect">R2: Solution Architect</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r3-data-scientist">R3: Data Scientist</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r4-data-engineer">R4: Data Engineer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r5-software-engineer">R5: Software Engineer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r6-devops-engineer">R6: DevOps Engineer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r7-ml-engineer-mlops-engineer">R7: ML Engineer/MLOps Engineer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlops-architecture-and-workflow">7. MLOps Architecture and Workflow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-mlops-project-initiation">(A) MLOps Project Initiation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-feature-engineering-pipeline">(B) Feature Engineering Pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b1-requirements-definition">B1: Requirements Definition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b2-pipeline-implementation">B2: Pipeline Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#experimentation">© Experimentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-automated-ml-workflow-pipeline">(D) Automated ML Workflow Pipeline</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlops-definition">8. MLOps Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-characteristics">Key Characteristics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-challenges">9. Open Challenges</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#organizational-challenges">9.1 Organizational Challenges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ml-system-challenges">9.2 ML System Challenges</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operational-challenges">9.3 Operational Challenges</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-and-technologies">10. Tools and Technologies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-source-examples">10.1 Open-Source Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commercial-examples">10.2 Commercial Examples</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">11. Conclusion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-contributions">Key Contributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#research-impact">Research Impact</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#future-directions">Future Directions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-reference-categories">Key Reference Categories</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dominik Kreuzberger, Niklas Kühl, Sebastian Hirschl
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
